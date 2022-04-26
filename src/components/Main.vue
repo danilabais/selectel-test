@@ -1,28 +1,29 @@
 <template>
   <div class="container main" >
-    <a-row class="selects fixed">
-      <a-space :size="20">
-        
+    <div class="selects fixed">
+      <div class="selects__wrap" >
           <a-select
-            class="select"
+            class="select input"
             v-model:value="value"
             mode="tags"
-            style="width: 295px"
+            
             placeholder="Tags Mode"
             :options="options"
             @change="handleChange"
+            
           ></a-select>
        
         <a-col>
-          <a-range-picker style="width: 295px" v-model:value="value6" />
+          <a-range-picker   class="input" v-model:value="value6" />
         </a-col>
-      </a-space>
-    </a-row>
+      </div>
+    </div>
     <a-skeleton active />
     <a-space :size="20" class="cards-wrapper">
       <Card v-for="item in 9" />
     </a-space>
-    <a-alert message="Текст не найден" banner />
+    <a-alert message="Текст не найден" banner class="not-found" />
+    <br>
   </div>
 </template>
 
@@ -40,7 +41,7 @@ export default {
     background: #fff !important;
     position: sticky !important;
     z-index: 100;
-    top: 64px !important;
+    top: 62px !important;
     width: 100%;
 }
 .selects {
@@ -53,6 +54,23 @@ export default {
 .cards-wrapper {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
+  margin-bottom: 60px;
+}
+.not-found {
+    margin-bottom: 60px !important;
+}
+.selects__wrap {
+    display: flex;
+   gap: 20px;
+}
+.input {
+    flex: 1 1 auto !important;
+    max-width: 295px;
+}
+@media (max-width: 650px) {
+    .selects__wrap {
+        flex-direction: column;
+    }
 }
 </style>

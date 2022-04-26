@@ -25,6 +25,7 @@ export default {
   background:  url('@/assets/bg.png');
   background-repeat: no-repeat;
   background-size:cover ;
+  background-position: center;
  
   
 }
@@ -32,17 +33,36 @@ export default {
     color: #fff !important;
     margin-bottom: 24px;
     min-width: 574px;
+    font-size: 32px !important;
 
 }
 .slide__text {
     color: #fff !important;
     max-width: 453px;
+    font-size: 16px !important;
 }
 .slide__card {
     padding-bottom: 100px;
     margin-top: 290px;
     min-width: 574px !important;
 }
+@media (max-width:700px) {
+    .slide__title {
+        font-size: 20px !important;
+    }
+    .slide__text {
+        font-size: 14px !important;
+        max-width: 360px;
+    }
+}
+@media (max-width:360px) {
+    .slide__title {
+        max-width: 200px;
+    }
+    .slide__text {
 
+        max-width: 200px;
+    }
+}
 
 </style>
