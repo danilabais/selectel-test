@@ -64,7 +64,7 @@ export default {
       let sortedArr = this.posts;
       if (this.sortByName.length !== 0) {
         sortedArr = sortedArr.filter((element) =>
-          element.userName.includes(this.sortByName)
+          this.sortByName.includes(element.userName)
         );
       }
 
