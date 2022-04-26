@@ -1,4 +1,5 @@
 <template>
+<a-config-provider :locale="locale">
   <a-layout>
     <Navbar/>
     <div class="wrapper-page">
@@ -16,6 +17,7 @@
 
     </div>
   </a-layout>
+  </a-config-provider>
 </template>
 
 <script>
@@ -24,12 +26,18 @@ import Carousel from '@/components/Carusel.vue'
 import Main from '@/components/Main.vue'
 import Footer from '@/components/Footer.vue'
 import '@/assets/fonts/fonts.scss'
+import ruRU from 'ant-design-vue/es/locale/ru_RU';
 
 export default {
   name: "App",
   components: {
     Navbar,Carousel,Main,Footer
   },
+  data() {
+      return {
+        locale: ruRU,
+      };
+    },
 };
 </script>
 

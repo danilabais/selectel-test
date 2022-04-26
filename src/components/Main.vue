@@ -6,21 +6,20 @@
             class="select input"
             v-model:value="value"
             mode="tags"
-            
-            placeholder="Tags Mode"
+            placeholder="Выберите автора"
             :options="options"
             @change="handleChange"
             
           ></a-select>
        
         <a-col>
-          <a-range-picker   class="input" v-model:value="value6" />
+          <a-range-picker v-on:change="changed"  :placeholder="['От','До']" class="input" v-model:value="value6" />
         </a-col>
       </div>
     </div>
-    <a-skeleton active />
-    <a-space :size="20" class="cards-wrapper">
-      <Card v-for="item in 9" />
+    <a-skeleton :loading="loading" />
+    <a-space  :size="20" class="cards-wrapper">
+      <Card :item="item" v-for="item in posts" :key="item.id"/>
     </a-space>
     <a-alert message="Текст не найден" banner class="not-found" />
     <br>
@@ -33,6 +32,30 @@ export default {
   components: {
     Card,
   },
+  data() {
+      return {
+          loading:true,
+          
+            
+      }
+  },
+  computed: {
+      posts() {
+          return this.$store.getters.posts
+      },
+      value(){
+          return // this.$store.getters.authors
+      }
+  },
+  methods: {
+      changed(e){
+          console.log(e)
+      }
+  },
+  async created(){
+    await this.$store.dispatch('fetchPosts')
+    this.loading =false
+  }
 };
 </script>
 
@@ -56,13 +79,17 @@ export default {
   flex-wrap: wrap;
   justify-content: space-around;
   margin-bottom: 60px;
+  align-items: stretch !important;
+   
+   
+    
 }
 .not-found {
     margin-bottom: 60px !important;
 }
 .selects__wrap {
     display: flex;
-   gap: 20px;
+    gap: 20px;
 }
 .input {
     flex: 1 1 auto !important;
