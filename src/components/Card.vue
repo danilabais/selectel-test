@@ -3,13 +3,13 @@
     <a-typography-paragraph>
      {{item.body}}
     </a-typography-paragraph>
+  
     <a-space :size="16" />
     <a-row class="chips">
       <a-tag class="chips__name">{{item.userName}}</a-tag
       ><a-tag class="chips__date">{{time}}</a-tag>
     </a-row>
   </a-card>
-  <!-- <a-skeleton :loading="loading" /> -->
 </template>
 
 <script>
@@ -20,6 +20,7 @@ export default {
         required: true
 
     },
+   
   },
  
   computed: {
