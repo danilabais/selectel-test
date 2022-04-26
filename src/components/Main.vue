@@ -6,17 +6,16 @@
           class="select input"
           mode="tags"
           placeholder="Выберите автора"
-          @change="handleChange"
+          @change="handleSelect"
         >
-          <v-option
-            v-for="(key, item) in value"
-            :key="key"
-          >{{item}}</v-option>
+          <v-option v-for="(key, item) in authors" :key="key">{{
+            item
+          }}</v-option>
         </a-select>
 
         <a-col>
           <a-range-picker
-            @change="handleChange2"
+            @change="handlePicker"
             format="DD.MM.YYYY"
             :placeholder="['От', 'До']"
             class="input"
@@ -30,7 +29,12 @@
     <a-space :size="20" class="cards-wrapper">
       <Card :item="item" v-for="item in sorted" :key="item.id" />
     </a-space>
-    <a-alert v-if="!sorted.length && !loading" message="Текста не найдены" banner class="not-found" />
+    <a-alert
+      v-if="!sorted.length && !loading"
+      message="Текста не найдены"
+      banner
+      class="not-found"
+    />
     <br />
   </div>
 </template>
@@ -52,42 +56,45 @@ export default {
     posts() {
       return this.$store.getters.posts;
     },
-    value() {
+    authors() {
       return this.$store.getters.authors;
     },
     sorted() {
-        let sortedArr = this.posts;
+      //Сортировка по автору
+      let sortedArr = this.posts;
       if (this.sortByName.length !== 0) {
         sortedArr = sortedArr.filter((element) =>
           element.userName.includes(this.sortByName)
         );
-      } 
-       
+      }
+
+      //Сортировка по дате
       if (this.sortByDate.length !== 0) {
-          sortedArr=sortedArr.filter((element)=>element.date.getTime()<=this.sortByDate[1])
-          sortedArr=sortedArr.filter((element)=>element.date.getTime()>=this.sortByDate[0])
-      } 
-    
+        sortedArr = sortedArr.filter(
+          (element) => element.date.getTime() <= this.sortByDate[1]
+        );
+        sortedArr = sortedArr.filter(
+          (element) => element.date.getTime() >= this.sortByDate[0]
+        );
+      }
+
       return sortedArr;
     },
   },
   methods: {
-    handleChange(e) {
+    handleSelect(e) {
       this.sortByName = e;
     },
-    handleChange2(e) {
-        if (e==null) {
-            this.sortByDate = [0,Infinity]
-        } else {
-
-            this.sortByDate = [
-              new Date(e[0].$d).getTime(),
-              new Date(e[1].$d).getTime(),
-            ];
-        }
-     
+    handlePicker(e) {
+      if (e == null) {
+        this.sortByDate = [0, Infinity];
+      } else {
+        this.sortByDate = [
+          new Date(e[0].$d).getTime(),
+          new Date(e[1].$d).getTime(),
+        ];
+      }
     },
-    
   },
   async created() {
     await this.$store.dispatch("fetchPosts");

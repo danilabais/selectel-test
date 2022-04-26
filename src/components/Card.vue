@@ -1,13 +1,13 @@
 <template>
-  <a-card :title="item.title" style="width: 295px;height:auto">
+  <a-card :title="item.title" style="width: 295px; height: auto">
     <a-typography-paragraph>
-     {{item.body}}
+      {{ item.body }}
     </a-typography-paragraph>
-  
+
     <a-space :size="16" />
     <a-row class="chips">
-      <a-tag class="chips__name">{{item.userName}}</a-tag
-      ><a-tag class="chips__date">{{time}}</a-tag>
+      <a-tag class="chips__name">{{ item.userName }}</a-tag
+      ><a-tag class="chips__date">{{ time }}</a-tag>
     </a-row>
   </a-card>
 </template>
@@ -16,18 +16,19 @@
 export default {
   props: {
     item: {
-         type: Object,
-        required: true
-
+      type: Object,
+      required: true,
     },
-   
   },
- 
+
   computed: {
-      time(){
-          return `${this.item.date.toLocaleDateString("ru-RU", {day:"numeric",month:"long"})} ${this.item.date.getFullYear()}`
-      }
-  }
+    time() {
+      return `${this.item.date.toLocaleDateString("ru-RU", {
+        day: "numeric",
+        month: "long",
+      })} ${this.item.date.getFullYear()}`;
+    },
+  },
 };
 </script>
 
